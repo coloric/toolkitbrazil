@@ -2,7 +2,7 @@
 ![PyPI - Version](https://img.shields.io/pypi/v/toolkitbrazil)
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/toolkitbrazil)
 ![](https://img.shields.io/badge/Latest%20Release-Oct%2012,%202025-blue)
-[![Github](https://img.shields.io/badge/github-toolkit--brazil-blue)](https://github.com/coloric/toolkitbrazil)
+[![Github](https://img.shields.io/badge/github-toolkitbrazil-blue)](https://github.com/coloric/toolkitbrazil)
 <br>
 ![Pepy Total Downloads](https://img.shields.io/pepy/dt/toolkitbrazil)
 ![PyPI - Downloads](https://img.shields.io/pypi/dd/toolkitbrazil)
@@ -93,5 +93,6 @@ $ pip install toolkitbrazil
 
 
 ## License
+
 
 [MIT](https://choosealicense.com/licenses/mit/)
