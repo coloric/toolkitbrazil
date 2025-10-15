@@ -44,6 +44,7 @@ pip install toolkitbrazil
 
 ```python
 import toolkitbrazil as tkb
+from datetime import date
 
 # Remove diacritics, non alpha chars, multiple spaces and convert string to upper case
 print(tkb.strClean('A héalt#hy  dìet is    esse&ntiãl  for    go(od heàlth and    nutrition  '))
