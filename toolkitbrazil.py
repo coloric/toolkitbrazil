@@ -1,5 +1,7 @@
 import random
 import re
+import requests
+from datetime import date, timedelta
 
 _uf_cpf = {
     0: ['RS'],
@@ -198,16 +200,26 @@ def rngCNPJ() -> int:
     return int(''.join(str(x) for x in _cnpj))
 
 
-def rngCNPJfiliais() -> int:
+def rngCNPJfiliais(filial: int = 0) -> int:
     """
-    Generate a random CNPJ of a branch (any branch)
+    Generate a random CNPJ of a branch (any branch if not declared)
+
+    Parameters
+    ----------
+    filial : int, optional
+        Branch needed (1 to 9999)
 
     Returns
     -------
     int
         Returns a random CNPJ (any branch)
     """
-    _cnpj = [random.randrange(10) for _ in range(12)]
+    if 1 <= filial <= 9999:
+        _f = str(filial).zfill(4)
+        _lf = [int(_d) for _d in _f]
+        _cnpj = [random.randrange(10) for _ in range(8)] + _lf
+    else:
+        _cnpj = [random.randrange(10) for _ in range(12)]
 
     for _ in range(2):
         _v = sum(v * (i % 8 + 2) for i, v in enumerate(reversed(_cnpj)))
@@ -360,3 +372,170 @@ def valCPFuf(cpf: int, uf: str) -> bool:
             return True
 
     return False
+
+
+def valBissexto(ano: int) -> bool:
+    """
+    Check if it is a leap year
+
+    Parameters
+    ----------
+    ano : int
+        Year to be checked
+
+    Returns
+    -------
+    bool
+        Returns True if the year is a leap year
+    """
+    if ano % 400 == 0:
+        _r = True
+    elif ano % 100 == 0:
+        _r = False
+    elif ano % 4 == 0:
+        _r = True
+    else:
+        _r = False
+    return _r
+
+
+def dtPascoa(ano: int) -> date:
+    """
+    Calculates the date of Easter Sunday for a given year.
+
+    Parameters
+    ----------
+    ano : int
+        Year to check
+
+    Returns
+    -------
+    date
+        Return Easter Sunday for a given year
+    """
+    _a = ano % 19
+    _b = ano // 100
+    _c = ano % 100
+    _d = _b // 4
+    _e = _b % 4
+    _f = (_b + 8) // 25
+    _g = (_b - _f + 1) // 3
+    _h = (19 * _a + _b - _d - _g + 15) % 30
+    _i = _c // 4
+    _k = _c % 4
+    _l = (32 + 2 * _e + 2 * _i - _h - _k) % 7
+    _m = (_a + 11 * _h + 22 * _l) // 451
+
+    _mp = (_h + _l - 7 * _m + 114) // 31
+    _dp = ((_h + _l - 7 * _m + 114) % 31) + 1
+
+    return date(ano, _mp, _dp)
+
+
+def valPascoa(dt: date) -> bool:
+    """
+    Check if a specific date is Easter Sunday.
+
+    Parameters
+    ----------
+    data : date
+        Date to check
+
+    Returns
+    -------
+    bool
+        Return true if date is Easter Sunday
+    """
+
+    _a = dt.year
+    _p = dtPascoa(_a)
+
+    return dt == _p
+
+
+def dtCarnaval(ano: int) -> date:
+    """
+    Calculates the date of Carnival Tuesday for a given year.
+
+    Parameters
+    ----------
+    ano : int
+        Year to check
+
+    Returns
+    -------
+    date
+        Return Carnival Tuesday for a given year
+    """
+    _p = dtPascoa(ano)
+    _d = _p - timedelta(days=47)
+
+    return _d
+
+
+def valCarnaval(dt: date) -> bool:
+    """
+    Check if a specific date is Carnival Tuesday.
+
+    Parameters
+    ----------
+    dt : date
+        Date to check
+
+    Returns
+    -------
+    bool
+        Return true if date is Carnival Tuesday
+    """
+    _a = dt.year
+    _d = dtCarnaval(_a)
+
+    return dt == _d
+
+
+def ufCep(cep) -> list[str]:
+    """
+    Check a zip code and return a list containing city and state [cidade, uf].
+
+    Parameters
+    ----------
+    cep : int, str
+        Zip code to be checked
+
+    Returns
+    -------
+    list[str]
+        Return a list with city and state
+    """
+    if not isinstance(cep, (int, str)):
+        return None
+
+    if isinstance(cep, int):
+        cep = str(cep)
+
+    _c = ''.join(re.findall(r'\d', cep)).zfill(8)
+
+    if len(_c) != 8:
+        return None
+
+    _url = f'https://viacep.com.br/ws/{_c}/json/'
+
+    try:
+        _r = requests.get(_url, timeout=5)
+        _r.raise_for_status()
+        _d = _r.json()
+
+        if _d.get('erro'):
+            return None
+
+        return [
+            strClean(_d.get('localidade')),
+            strClean(_d.get('uf'))
+        ]
+
+    except requests.exceptions.RequestException as e:
+        print(f'Connection error: {e}')
+        return None
+    except Exception as e:
+        print(f'Unexpected error: {e}')
+        return None

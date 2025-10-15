@@ -1,7 +1,7 @@
 ![PyPI - License](https://img.shields.io/pypi/l/toolkitbrazil)
 ![PyPI - Version](https://img.shields.io/pypi/v/toolkitbrazil)
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/toolkitbrazil)
-![](https://img.shields.io/badge/Latest%20Release-Oct%2012,%202025-blue)
+![](https://img.shields.io/badge/Latest%20Release-Oct%2015,%202025-blue)
 [![Github](https://img.shields.io/badge/github-toolkitbrazil-blue)](https://github.com/coloric/toolkitbrazil)
 <br>
 ![Pepy Total Downloads](https://img.shields.io/pepy/dt/toolkitbrazil)
@@ -12,8 +12,8 @@
 
 # Introduction
 
-A Python module with a collection of useful tools for Brazilians (and anyone else who wants to use it). <br>
-Take a look at [CHANGELOG.md](https://github.com/coloric/toolkitbrazil/CHANGELOG.md) for the changes.
+A Python module with a collection of useful tools for Brazilians (and anyone else who wants to use it).
+Take a look at [CHANGELOG.md](https://github.com/coloric/toolkitbrazil/blob/main/CHANGELOG.md) for the changes.
 
 
 # Brief History
@@ -26,9 +26,19 @@ Here's a quick overview of what the library has at the moment:
 
 - Random generation of CPF and CNPJ numbers
 - CPF and CNPJ validation
-- Check which state a DDD belongs to
+- Checks which state a DDD belongs to
+- Checks if a year is a leap year
+- Calculates the date of Easter Sunday or Carnival Tuesday for a given year
+- Check if a specific date is Easter Sunday or Carnival Tuesday
 - Returns the capital of a state
+- Returns city and state os a zip code
 - String cleaner
+
+
+## How to install
+
+pip install toolkitbrazil
+
 
 ## Usage
 
@@ -59,6 +69,10 @@ print(tkb.rngCNPJ())
 print(tkb.rngCNPJfiliais())
 # Sample return: 94318840326682
 
+# Generate a random CNPJ of a desired branch (1 to 9999)
+print(tkb.rngCNPJfiliais(187))
+# Sample return: 50138939018728
+
 # Validate a CNPJ
 print(tkb.valCNPJ(86978319000101))
 # Return: True
@@ -80,6 +94,32 @@ print(tkb.ufCapital('SP'))
 # Validate a CPF and check its UF
 print(tkb.valCPFuf(75269169703, 'SP'))
 # Return False (it's a valid CPF but from another UF)
+
+# Check if it is a leap year
+print(tkb.valBissexto(2024))
+# Return: True
+
+# Calculates the date of Easter Sunday for a given year
+print(tkb.dtPascoa(2025))
+# Return 2025-04-20
+
+# Check if a specific date is Easter Sunday
+print(tkb.valPascoa(date(2025, 4, 20)))
+# Return: True
+
+# Calculates the date of Carnival Tuesday for a given year
+print(tkb.dtCarnaval(2025))
+# Return 2025-03-04
+
+# Check if a specific date is Carnival Tuesday
+print(tkb.valCarnaval(date(2025, 3, 4)))
+# Return: True
+
+# Check a zip code and return a list containing city and state [cidade, uf]
+print(tkb.ufCep('01001-000'))
+# Return ['SAO PAULO', 'SP']
+print(tkb.ufCep(80020000))
+# Return ['CURITIBA', 'PR']
 ```
 
 ## Authors
@@ -87,12 +127,6 @@ print(tkb.valCPFuf(75269169703, 'SP'))
 Ricardo Colombani - [@coloric](https://www.github.com/coloric)
 
 
-## How to install
-
-$ pip install toolkitbrazil
-
-
 ## License
-
 
 [MIT](https://choosealicense.com/licenses/mit/)

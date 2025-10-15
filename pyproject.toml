@@ -1,6 +1,6 @@
 [project]
 name = "toolkitbrazil"
-version = "0.0.1"
+version = "0.0.2"
 description = "A Python module with a collection of useful tools for Brazilians (and anyone else who wants to use it)"
 authors = [
   {name = "Ricardo Colombani", email = "ricardo.colombani@gmail.com"}
@@ -12,10 +12,8 @@ requires-python = ">=3.10"
 
 [project.urls]
 Homepage = "https://github.com/coloric/toolkitbrazil"
-Documentation = "https://github.com/coloric/toolkitbrazil/docs"
 Repository = "https://github.com/coloric/toolkitbrazil"
-"Bug Tracker" = "https://github.com/coloric/toolkitbrazil/issues"
-Changelog = "https://github.com/coloric/toolkitbrazil/CHANGELOG.md"
+Changelog = "https://github.com/coloric/toolkitbrazil/blob/main/CHANGELOG.md"
 
 [dependency-groups]
 dev = [
