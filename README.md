@@ -1,7 +1,7 @@
 ![PyPI - License](https://img.shields.io/pypi/l/toolkitbrazil)
 ![PyPI - Version](https://img.shields.io/pypi/v/toolkitbrazil)
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/toolkitbrazil)
-![](https://img.shields.io/badge/Latest%20Release-Oct%2015,%202025-blue)
+![](https://img.shields.io/badge/Latest%20Release-Oct%2020,%202025-blue)
 [![Github](https://img.shields.io/badge/github-toolkitbrazil-blue)](https://github.com/coloric/toolkitbrazil)
 <br>
 ![Pepy Total Downloads](https://img.shields.io/pepy/dt/toolkitbrazil)
@@ -114,6 +114,16 @@ print(tkb.dtCarnaval(2025))
 
 # Check if a specific date is Carnival Tuesday
 print(tkb.valCarnaval(date(2025, 3, 4)))
+# Return: True
+
+# Generate a random car's license plate (with hyphen or not)
+print(tkb.rngPlaca())
+# Sample return: IDY1G29
+print(tkb.rngPlaca(h=True))
+# Sample return: DTQ-2D21
+
+# Validate an e-mail
+print(tkb.valEmail('test@me.com'))
 # Return: True
 
 # Check a zip code and return a list containing city and state [cidade, uf]

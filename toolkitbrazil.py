@@ -493,6 +493,46 @@ def valCarnaval(dt: date) -> bool:
     return dt == _d
 
 
+def rngPlaca(h=False) -> str:
+    """
+    Generate a random car's license plate
+
+    Returns
+    -------
+    str
+        Returns a random car's license plate
+    """
+    _l = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    _n = '0123456789'
+    _p = ''.join(random.choices(_l, k=4)) + ''.join(random.choices(_n, k=3))
+    _s = '-' if h == True else ''
+    _r = _p[:3] + _s + _p[4] + _p[3] + _p[-2:]
+
+    return _r
+
+
+def valEmail(email: str) -> bool:
+    """
+    Validate an e-mail
+
+    Parameters
+    ----------
+    email : str
+        E-mail to be validated
+
+    Returns
+    -------
+    bool
+        Returns whether the e-mail is valid or not
+    """
+    _r = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+
+    if re.fullmatch(_r, email):
+        return True
+    else:
+        return False
+
+
 def ufCep(cep) -> list[str]:
     """
     Check a zip code and return a list containing city and state [cidade, uf].

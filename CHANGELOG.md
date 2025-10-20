@@ -1,3 +1,10 @@
+## [0.0.3] - 2025-10-20
+
+### Added
+
+- rngPlaca: Generate a random car's license plate (with hyphen or not)
+- valEmail: Validate an e-mail
+
 ## [0.0.2] - 2025-10-15
 
 ### Changed
